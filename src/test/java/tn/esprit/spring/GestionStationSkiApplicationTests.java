@@ -8,6 +8,7 @@ class GestionStationSkiApplicationTests {
 
 	@Test
 	void contextLoads() {
+	//method empty
 	}
 
 }

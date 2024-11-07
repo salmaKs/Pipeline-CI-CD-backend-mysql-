@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    image: localhost:8082/salmaksantini-g4-station-ski:latest
+    container_name: backend-container
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/stationSki?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - mysql-db
+    networks:
+      - spring-boot-network
+    restart: always
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: stationSki
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - spring-boot-network
+    restart: always   
+volumes:
+  mysql-data:
+
+networks:
+  spring-boot-network:
+    driver: bridge
+
